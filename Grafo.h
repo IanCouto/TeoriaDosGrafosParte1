@@ -1,4 +1,4 @@
-resultada#ifndef TEORIADOSGRAFOS_GRAFO_H
+#ifndef TEORIADOSGRAFOS_GRAFO_H
 #define TEORIADOSGRAFOS_GRAFO_H
 
 #include <iostream>

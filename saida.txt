@@ -1,1 +1,9 @@
 -----------GRAFO------------
+0.
+
+
+-----------NOS------------
+No - Grau de Entrada - Grau de saida - Peso
+0. - E:0 - S:0 - P:0
+
+

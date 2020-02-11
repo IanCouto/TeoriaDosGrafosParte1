@@ -22,7 +22,7 @@ void Pilha::empilha(int val)
     tam++;
 }
 
-int Pilha::desempilha()
+void Pilha::desempilha()
 {
 
     if(tam != 0)
@@ -49,8 +49,7 @@ bool Pilha::vazia()
 {
     if(tam == 0)
         return(true);
-    else
-        return(false);
+    return(false);
 }
 
 int Pilha::tamanho(){

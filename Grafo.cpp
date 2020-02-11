@@ -196,6 +196,7 @@ int Grafo::mapeamento(int* mapa, int id) {
         if(mapa[i] == id)
             return i;
     }
+    exit(-1); //erro -1
 }
 
 Grafo* Grafo::getSubjacente(){
@@ -909,6 +910,7 @@ int Grafo::auxPossuiCiclo(int vetor[],int id) {
     }
     else{
         auxPossuiCiclo(vetor,vetor[id]);
+        return 0;
     }
 }
 
