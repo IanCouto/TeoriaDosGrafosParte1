@@ -1,5 +1,2 @@
-g++ *.c* -o exec.exe // compilar projeto usando g++
-exec.exe grafo5.txt saida.txt 0 0 0 // executar primeira parte do projeto usando a instancia grafo5.txt
-clsexec.exe Instancias/instance_1.txt resultado.txt // executar segunda parte do projeto usando a instancia instance_1.txt
 g++ *.c* -o exec.exe
-exec.exe grafo5.txt saida.txt 0 0 0
+exec.exe Instances/grafo5.txt saida.txt 0 0 0

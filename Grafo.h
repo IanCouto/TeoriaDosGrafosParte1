@@ -64,6 +64,9 @@ public:
     void floyd(No* noU, No* noV, ofstream &arquivo_saida);
     void AGMPrim(ofstream &arquivo_saida);
     void AGMKruskal(ofstream &arquivo_saida);
+    void grauMedio(ofstream &arquivo_saida);
+    void numeroDeVertices(ofstream &arquivo_saida);
+    void numeroDeArestas(ofstream &arquivo_saida);
     void fechoTriadico(ofstream &arquivo_saida);
 
    //AUXILIARES DAS FUNCIONALIDADES
@@ -72,7 +75,11 @@ public:
    bool possuiCiclo();
    int auxPossuiCiclo(int *vetor, int id);
    bool auxPossuiCicloDirecionado(int idDestino, Pilha *nosEmExploracao);
+
    //Floyd
    void criaMatriz(float** matriz, int* noAnterior, int* mapa);
+   //Grau Médio
+   float grauMaximo();
+   float grauMinimo();
 };
 #endif //TEORIADOSGRAFOS_GRAFO_H

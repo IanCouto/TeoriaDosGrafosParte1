@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "Grafo.h"
 
+
 using namespace std;
 int menu(){
 
@@ -30,9 +31,9 @@ int menu(){
 
 }
 
-void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida){
+void selecionar( Grafo* grafo, ofstream& arquivo_saida, bool matrizAdjacencia){
 
-    switch (selecao) {
+    /*switch (selecao) {
 
         case 1:{
             grafo->mostrarGrafo(arquivo_saida);
@@ -129,7 +130,7 @@ void selecionar(int selecao, Grafo* grafo, ofstream& arquivo_saida){
             break;
         }
 
-    }
+    }*/
 }
 
 
@@ -180,6 +181,23 @@ Grafo* leitura(ifstream& arquivo_entrada, int direcionado, int ponderadoAresta, 
     return grafo;
 }
 
+bool visualizacao(){
+    int escolha;
+
+    cout << "Forma de representacao do grafo:" << endl;
+    cout << "[1] Matriz de adjacencia" << endl;
+    cout << "[2] Lista de adjacencia" << endl;
+    cout << "[3] Sair" << endl;
+    cin >> escolha;
+
+    if(escolha == 1)
+        return true;
+
+    if(escolha == 2)
+        return false;
+    exit(-1);
+}
+
 int main(int argc, char* argv[]) {
 
     //Verificação se todos os parâmetros do programa foram encontrados
@@ -190,7 +208,7 @@ int main(int argc, char* argv[]) {
 
     }
 
-    //Abrindo arquivo de entrada
+    //Abrindo arquivo de entrada e saída
     ifstream arquivo_entrada;
     ofstream arquivo_saida;
     arquivo_entrada.open(argv[1], ios::in);
@@ -200,20 +218,23 @@ int main(int argc, char* argv[]) {
 
     if(arquivo_entrada.is_open())
         grafo = leitura(arquivo_entrada, atoi(argv[3]), atoi(argv[4]), atoi(argv[5])); //atoi = converte string para int
-    else
+    else{
         cout << "Nao foi possivel abrir o arquivo " << argv[1] << endl;
-
-    int selecao = menu();
-    while (selecao!=0){
-        selecionar(selecao,grafo,arquivo_saida);
-        selecao = menu();
+        return 0;
     }
+    grafo->numeroDeVertices(arquivo_saida);
+    arquivo_saida << endl <<  "==============================================" << endl << endl;
+    grafo->numeroDeArestas(arquivo_saida);
+    arquivo_saida << endl <<  "==============================================" << endl << endl;
+    grafo->grauMedio(arquivo_saida);
+    arquivo_saida << endl <<  "==============================================" << endl << endl;
+    grafo->fechoTriadico(arquivo_saida);
+    arquivo_saida << endl <<  "==============================================" << endl << endl;
 
-    //Fechando arquivo de entrada
+    //Fechando arquivos de entrada e saída
     arquivo_entrada.close();
-
-    //Fechando arquivo de saída
     arquivo_saida.close();
+
 
     return 0;
 }

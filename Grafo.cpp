@@ -275,7 +275,7 @@ void Grafo::auxBuscaEmProfundidade(int id_no, bool* aux, ofstream& arquivo_saida
     aux[id_no] = true;
     No* noAux= getNo(id_no);
     for(Aresta* arestaAux= noAux->getPrimeiraAresta();arestaAux!=nullptr;arestaAux=arestaAux->getProximaAresta()){
-            if(aux[arestaAux->getIdDestino()]==false){
+            if(!aux[arestaAux->getIdDestino()]){
                 arquivo_saida<<"["<<id_no<<" , "<<arestaAux->getIdDestino()<<"] nao é retorno"<<endl;
                 auxBuscaEmProfundidade(arestaAux->getIdDestino(),aux,arquivo_saida);
             }
@@ -929,6 +929,54 @@ bool Grafo::auxPossuiCicloDirecionado(int idDestino,Pilha nosEmExploracao[]){
 
 }
 //-----------------------------------------
+bool Grafo::ehVizinho(No* noU, No* noV) {
+    if(this->getDirecionado()) {
+        Aresta* aux = noU->getPrimeiraAresta();
+        while(aux != nullptr){
+            if(aux->getIdDestino() == noV->getId())
+                return true;
+            aux = aux->getProximaAresta();
+        }
+        aux = noV->getPrimeiraAresta();
+        while(aux != nullptr) {
+            if(aux->getIdDestino() == noU->getId())
+                return true;
+            aux = aux->getProximaAresta();
+        }
+        return false;
+    } else {
+        Aresta* aux = noU->getPrimeiraAresta();
+        while(aux != nullptr){
+            if(aux->getIdDestino() == noV->getId())
+                return true;
+            aux = aux->getProximaAresta();
+        }
+        return false;
+    }
+}
+
+void Grafo::numeroDeVertices(ofstream &arquivo_saida) {
+
+    arquivo_saida <<"Numero de vertices: " << getOrdem() <<endl;
+}
+
+void Grafo::numeroDeArestas(ofstream &arquivo_saida) {
+
+    arquivo_saida << "Numero de arestas: " << getQuantAresta() << endl;
+}
+
+float Grafo::grauMaximo(){
+    return 0;
+}
+
+float Grafo::grauMinimo() {
+    return 0;
+}
+
+void Grafo::grauMedio(ofstream &arquivo_saida) {
+
+    arquivo_saida << "Grau medio do grafo: " << (grauMaximo()+grauMinimo())/2 << endl;
+}
 
 //FECHO TRIÁDICO---------------------------
 //Um fecho triádico ocorre em uma rede social se duas pessoas que tem um amigo em comum
@@ -942,7 +990,7 @@ bool Grafo::auxPossuiCicloDirecionado(int idDestino,Pilha nosEmExploracao[]){
 //o coeficiente de agrupamento de um grafo sem tríades é zero.
 //Responsável: Lucas
 
-void Grafo::fechoTriadico(ofstream& arquivo_saida){
+void Grafo::fechoTriadico(ofstream &arquivo_saida) {
     Grafo* grafo;
     if(this->getDirecionado())
         grafo = this->getSubjacente();
@@ -981,36 +1029,8 @@ void Grafo::fechoTriadico(ofstream& arquivo_saida){
     arquivo_saida<<"Triades Fechadas: " << triadeFechada << endl;
     arquivo_saida<<"Triades Abertas: " << triadeAberta << endl;
     arquivo_saida<<"Coeficiente de Agrupamento: " << coefTriad << endl;
-    arquivo_saida<<endl<<endl;
 
     if(this->getDirecionado())
         delete grafo;
 }
-
-bool Grafo::ehVizinho(No* noU, No* noV) {
-    if(this->getDirecionado()) {
-        Aresta* aux = noU->getPrimeiraAresta();
-        while(aux != nullptr){
-            if(aux->getIdDestino() == noV->getId())
-                return true;
-            aux = aux->getProximaAresta();
-        }
-        aux = noV->getPrimeiraAresta();
-        while(aux != nullptr) {
-            if(aux->getIdDestino() == noU->getId())
-                return true;
-            aux = aux->getProximaAresta();
-        }
-        return false;
-    } else {
-        Aresta* aux = noU->getPrimeiraAresta();
-        while(aux != nullptr){
-            if(aux->getIdDestino() == noV->getId())
-                return true;
-            aux = aux->getProximaAresta();
-        }
-        return false;
-    }
-}
-
 //-----------------------------------------
